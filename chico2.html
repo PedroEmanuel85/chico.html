@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz do Amor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            text-align: center;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #ff3b3b;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz do Amor 💖</h1>
+        <p id="question">Camila, você sabe por que eu te amo tanto?</p>
+        <div id="options">
+            <button onclick="checkAnswer(1)">Porque você é linda</button>
+            <button onclick="checkAnswer(2)">Porque você é forte</button>
+            <button onclick="checkAnswer(3)">Porque você é incrível em tudo</button>
+            <button onclick="checkAnswer(4)">Todas as anteriores ❤️</button>
+        </div>
+        <p id="response" class="hidden"></p>
+        <button id="nextQuestion" class="hidden" onclick="nextQuestion()">Próxima</button>
+    </div>
+
+    <script>
+        let questions = [
+            {
+                question: "Camila, sabe o quanto você é especial para mim?",
+                options: ["Mais do que tudo", "Como o sol para o dia", "Como as estrelas para o céu", "Todas as anteriores ❤️"],
+                correct: 4
+            },
+            {
+                question: "Por que eu sou tão sortudo de ter você?",
+                options: ["Porque você é carinhosa", "Porque você me entende", "Porque você é minha melhor amiga", "Todas as anteriores ❤️"],
+                correct: 4
+            }
+        ];
+        let currentQuestion = 0;
+
+        function checkAnswer(option) {
+            const responseElement = document.getElementById("response");
+            const nextButton = document.getElementById("nextQuestion");
+
+            if (option === questions[currentQuestion].correct) {
+                responseElement.textContent = "Acertou! ❤️ Você é tudo isso e muito mais!";
+            } else {
+                responseElement.textContent = "Não é bem isso, mas ainda assim, você é perfeita! ❤️";
+            }
+
+            responseElement.classList.remove("hidden");
+            nextButton.classList.remove("hidden");
+            document.getElementById("options").classList.add("hidden");
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
+            const responseElement = document.getElementById("response");
+            const nextButton = document.getElementById("nextQuestion");
+
+            if (currentQuestion < questions.length) {
+                const q = questions[currentQuestion];
+                questionElement.textContent = q.question;
+                optionsElement.innerHTML = q.options.map((option, index) => 
+                    `<button onclick="checkAnswer(${index + 1})">${option}</button>`
+                ).join("");
+                optionsElement.classList.remove("hidden");
+                responseElement.classList.add("hidden");
+                nextButton.classList.add("hidden");
+            } else {
+                questionElement.textContent = "Fim do Quiz! ❤️ Camila, eu sei q vc teve um dificil e estressante e eu não sei exatamente oq fazer para anima-la, mas quero q saiba q eu estou aqui para tudo q vc prescisar, vc é incrivel de todas as formas, como a gente tinha conversado, tem dias e dias, hj pode nao ter sido como vc queria q fosse mas isso nao define nada, e sei q outros dias vao ser bem melhores, vc é uma garota muito especial e eu sei que vc vai muito longe, peço desculpas tambem pelo estresse q eu tambem causei a vc hj, talvez nao era o momento apropriado nem nada e mesmo assim eu acabei te estressando. Eu te amo e saiba q sempre vou estar aqui para voçe!";
+                optionsElement.classList.add("hidden");
+                responseElement.classList.add("hidden");
+                nextButton.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
